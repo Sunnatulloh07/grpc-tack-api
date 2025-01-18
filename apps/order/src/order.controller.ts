@@ -26,4 +26,9 @@ export class OrderController {
   deleteOrder(data: DeleteOrderRequest) {
     return this.orderService.deleteOrder(data.id);
   }
+
+  @GrpcMethod('OrderService', 'HealthCheck')
+  healthCheck(): { status: string } {
+    return { status: 'healthy' };
+  }
 }

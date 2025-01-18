@@ -7,6 +7,9 @@ service UserService {
   rpc GetUserById (GetUserByIdRequest) returns (UserResponse);
   rpc UpdateUser (UpdateUserRequest) returns (UserResponse);
   rpc DeleteUser (DeleteUserRequest) returns (Empty);
+
+
+  rpc HealthCheck (Empty) returns (HealthCheckResponse);
 }
 
 message CreateUserRequest {
@@ -35,3 +38,7 @@ message UserResponse {
 }
 
 message Empty {}
+
+message HealthCheckResponse {
+  string status = 1;
+}

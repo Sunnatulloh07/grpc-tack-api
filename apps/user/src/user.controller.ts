@@ -26,4 +26,9 @@ export class UserController {
   deleteUser(data: DeleteUserRequest) {
     return this.userService.deleteUser(data.id);
   }
+
+  @GrpcMethod('UserService', 'HealthCheck')
+  healthCheck(): { status: string } {
+    return { status: 'healthy' };
+  }
 }

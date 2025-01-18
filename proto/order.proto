@@ -7,6 +7,9 @@ service OrderService {
   rpc GetOrderById (GetOrderByIdRequest) returns (OrderResponse);
   rpc UpdateOrder (UpdateOrderRequest) returns (OrderResponse);
   rpc DeleteOrder (DeleteOrderRequest) returns (Empty);
+
+  // HealthCheck metodini e'lon qilish
+  rpc HealthCheck (Empty) returns (HealthCheckResponse);
 }
 
 message CreateOrderRequest {
@@ -34,6 +37,10 @@ message OrderResponse {
   string userId = 2;
   string product = 3;
   double price = 4;
+}
+
+message HealthCheckResponse {
+  string status = 1;
 }
 
 message Empty {}

@@ -20,12 +20,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
       message = 'Service is currently unavailable';
     }
 
-    // console.error({
-    //   timestamp: new Date().toISOString(),
-    //   path: request.url,
-    //   message: exception instanceof Error ? exception.message : exception,
-    // });
-
     response.status(status).json({
       statusCode: status,
       message,

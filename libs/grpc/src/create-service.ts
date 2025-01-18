@@ -10,7 +10,7 @@ export function createService(name: string, module: unknown, port: number): Prom
     options: {
       package: name,
       protoPath: join(__dirname, '../../../proto', `${name}.proto`),
-      url: `localhost:${port}`,
+      url: process.env.NODE_ENV === 'production' ? `${name}:${port}` : `localhost:${port}`,
     },
   });
 }
