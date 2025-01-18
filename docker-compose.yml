@@ -1,0 +1,56 @@
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: ./apps/gateway/Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - user
+      - order
+    environment:
+      - NODE_ENV=production
+      - GATEWAY_PORT=3000
+    networks:
+      - grpc-network
+
+  user:
+    build:
+      context: .
+      dockerfile: ./apps/user/Dockerfile
+    ports:
+      - "5001:5001"
+    environment:
+      - NODE_ENV=production
+      - USER_SERVICE_PORT=5001
+      - MONGO_URI_USER_SERVICE=mongodb://mongodb:27017/user_db
+    networks:
+      - grpc-network
+
+  order:
+    build:
+      context: .
+      dockerfile: ./apps/order/Dockerfile
+    ports:
+      - "5002:5002"
+    environment:
+      - NODE_ENV=production
+      - ORDER_SERVICE_PORT=5002
+      - MONGO_URI_ORDER_SERVICE=mongodb://mongodb:27017/order_db
+    networks:
+      - grpc-network
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/db:/data/db
+    networks:
+      - grpc-network
+    restart: always
+
+networks:
+  grpc-network:
+    driver: bridge
